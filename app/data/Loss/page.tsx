@@ -43,7 +43,7 @@ export default function LossTable() {
               <th className="p-2">Amount Deposit</th>
               <th className="p-2">Amount on Bet</th>
               <th className="p-2">Withdrawl</th>
-              <th className="p-2">Amount Holding</th>
+              <th className="p-2">Amount Holdings</th>
               <th className="p-2">Status</th>
             </tr>
           </thead>
