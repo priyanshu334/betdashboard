@@ -47,7 +47,7 @@ export default function AddMemberForm() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50 flex items-center justify-center p-6">
+    <div className="min-h-screen w-full from-orange-500 via-orange-500 to-orange-500 flex items-center justify-center p-6">
       <Card className="sm:max-w-md w-full shadow-xl border-0">
         <CardHeader className="bg-gradient-to-r from-blue-500 to-blue-600 p-4 rounded-t-lg">
           <CardTitle className="text-2xl font-bold text-white">Add Member</CardTitle>

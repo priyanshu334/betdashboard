@@ -56,7 +56,7 @@ export default function AddPlayerForm() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-gray-50">
+    <div className="min-h-screen w-full bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 ">
       {/* Header - More responsive with better padding on mobile */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 shadow-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
@@ -65,12 +65,12 @@ export default function AddPlayerForm() {
       </div>
 
       {/* Main Content - Improved padding for mobile */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+      <div className="max-w-4xl bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <Card className="shadow-lg border-0">
           <CardHeader className="bg-gray-50 border-b pb-4">
             <CardTitle className="text-base sm:text-lg text-blue-700">Player Information</CardTitle>
           </CardHeader>
-          <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
+          <CardContent className="pt-4  sm:pt-6 px-4 sm:px-6">
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
               {/* Grid layout that stacks on mobile */}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">

@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100 text-gray-900 h-full`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 text-gray-900 h-full`}
       >
         {/* Navbar only on medium and larger screens */}
         <div className="hidden md:block">
