@@ -2,6 +2,7 @@
 
 import { Bell, Search, Menu, User, ChevronDown, Globe } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Navbar() {
   return (
@@ -50,12 +51,15 @@ export default function Navbar() {
           </div>
         </div>
 
-        <div className="hidden sm:flex items-center space-x-2 border-l border-indigo-700 pl-4">
+      <Link href="/profile">
+      <div className="hidden sm:flex items-center space-x-2 border-l border-indigo-700 pl-4">
           <div className="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-700 rounded-full flex items-center justify-center">
             <User className="text-gray-300 h-4 w-4" />
           </div>
           <div className="text-gray-300 text-sm font-medium">Account</div>
         </div>
+      
+      </Link> 
 
         <Menu className="text-gray-300 hover:text-pink-300 h-5 w-5 cursor-pointer md:hidden transition-colors" />
       </div>
