@@ -29,9 +29,9 @@ export default function ProfitTable() {
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2 mb-4">
-        <Link href="/Data"><Button variant="outline">All Id</Button></Link>
-        <Link href="/Data/Profit"><Button variant="outline">Profit</Button></Link>
-        <Link href="/Data/Loss"><Button variant="outline">Loss</Button></Link>
+        <Link href="/data"><Button variant="outline">All Id</Button></Link>
+        <Link href="/data/Profit"><Button variant="outline">Profit</Button></Link>
+        <Link href="/data/Loss"><Button variant="outline">Loss</Button></Link>
       </div>
 
       {/* Table Wrapper for Scroll */}
