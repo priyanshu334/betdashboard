@@ -28,7 +28,7 @@ export default function WithdrawTransaction(): React.ReactElement {
     setTransactionResult(null);
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/check-id/${userId}`);
+      const res = await fetch(`http://[2a02:4780:41:72ad::1]:5000/api/user/check-id/${userId}`);
       const data: { message: string } = await res.json();
 
       if (!res.ok) {
@@ -57,7 +57,7 @@ export default function WithdrawTransaction(): React.ReactElement {
     }
 
     try {
-      const res = await fetch(`http://localhost:5000/api/user/${userId}/withdraw-money`, {
+      const res = await fetch(`http://[2a02:4780:41:72ad::1]:5000/api/user/{userId}/withdraw-money`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

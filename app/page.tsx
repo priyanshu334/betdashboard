@@ -32,7 +32,7 @@ export default function AddPlayerForm() {
     setSuccess("");
 
     try {
-      const response = await fetch("http://localhost:5000/api/user/signup", {
+      const response = await fetch("http://[2a02:4780:41:72ad::1]:5000/api/user/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
