@@ -28,7 +28,7 @@ export default function AddMemberForm() {
     setMessage("");
 
     try {
-      const res = await axios.post("https://backend.nurdcells.com/api/member/signup", {
+      const res = await axios.post("https://backend.nurdcells.com/api/members/signup", {
         memberId: formData.memberId,
         fullName: formData.fullName,
         phone: formData.phone,
