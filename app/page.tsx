@@ -30,7 +30,9 @@ export default function AddPlayerForm() {
     setLoading(true);
     setError("");
     setSuccess("");
-
+  
+    console.log("🟡 Submitting form with data:", formData);
+  
     try {
       const response = await fetch("https://backend.nurdcells.com/api/user/signup", {
         method: "POST",
@@ -39,22 +41,28 @@ export default function AddPlayerForm() {
         },
         body: JSON.stringify(formData),
       });
-
+  
+      console.log("🔵 Raw response:", response);
+  
       const data = await response.json();
-
+  
+      console.log("🟢 Parsed response JSON:", data);
+  
       if (!response.ok) {
+        console.error("🔴 Server returned an error:", data.message);
         throw new Error(data.message || "Something went wrong");
       }
-
+  
       setSuccess("Player added successfully!");
       setFormData({ userId: "", fullName: "", phone: "", password: "", referralCode: "" });
     } catch (err: any) {
+      console.error("❌ Error during signup:", err);
       setError(err.message);
     } finally {
       setLoading(false);
     }
   };
-
+  
   return (
     <div className="min-h-screen w-full bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 ">
       {/* Header - More responsive with better padding on mobile */}
