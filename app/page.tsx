@@ -8,7 +8,6 @@ import { AlertCircle, CheckCircle } from "lucide-react";
 
 export default function AddPlayerForm() {
   const [formData, setFormData] = useState({
-    userId: "",
     fullName: "",
     phone: "",
     password: "",
@@ -19,12 +18,10 @@ export default function AddPlayerForm() {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
 
-  // Handle input change
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
@@ -54,7 +51,7 @@ export default function AddPlayerForm() {
       }
   
       setSuccess("Player added successfully!");
-      setFormData({ userId: "", fullName: "", phone: "", password: "", referralCode: "" });
+      setFormData({ fullName: "", phone: "", password: "", referralCode: "" });
     } catch (err: any) {
       console.error("❌ Error during signup:", err);
       setError(err.message);
@@ -64,49 +61,33 @@ export default function AddPlayerForm() {
   };
   
   return (
-    <div className="min-h-screen w-full bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 ">
-      {/* Header - More responsive with better padding on mobile */}
+    <div className="min-h-screen w-full bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500">
+      {/* Header */}
       <div className="bg-gradient-to-r from-blue-500 to-blue-600 shadow-md">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 py-4">
           <h1 className="text-xl sm:text-2xl font-bold text-white">Add Player</h1>
         </div>
       </div>
 
-      {/* Main Content - Improved padding for mobile */}
+      {/* Main Content */}
       <div className="max-w-4xl bg-gradient-to-br from-orange-500 via-orange-500 to-orange-500 mx-auto px-4 sm:px-6 py-6 sm:py-8">
         <Card className="shadow-lg border-0">
           <CardHeader className="bg-gray-50 border-b pb-4">
             <CardTitle className="text-base sm:text-lg text-blue-700">Player Information</CardTitle>
           </CardHeader>
-          <CardContent className="pt-4  sm:pt-6 px-4 sm:px-6">
+          <CardContent className="pt-4 sm:pt-6 px-4 sm:px-6">
             <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-              {/* Grid layout that stacks on mobile */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Player ID</label>
-                  <Input
-                    type="text"
-                    name="userId"
-                    value={formData.userId}
-                    onChange={handleChange}
-                    placeholder="AB102"
-                    required
-                    className="w-full"
-                  />
-                </div>
-
-                <div className="space-y-2">
-                  <label className="text-sm font-medium text-gray-700">Full Name</label>
-                  <Input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    placeholder="John Doe"
-                    required
-                    className="w-full"
-                  />
-                </div>
+              <div className="space-y-2">
+                <label className="text-sm font-medium text-gray-700">Full Name</label>
+                <Input
+                  type="text"
+                  name="fullName"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  placeholder="John Doe"
+                  required
+                  className="w-full"
+                />
               </div>
 
               <div className="space-y-2">
@@ -116,7 +97,7 @@ export default function AddPlayerForm() {
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
-                  placeholder="123-456-7890"
+                  placeholder="1234567890"
                   required
                   className="w-full"
                 />
@@ -147,7 +128,7 @@ export default function AddPlayerForm() {
                 />
               </div>
 
-              {/* Error and success messages with icons */}
+              {/* Error and success messages */}
               {error && (
                 <div className="flex items-center text-red-600 text-sm p-2 bg-red-50 rounded">
                   <AlertCircle className="w-4 h-4 mr-2" />
@@ -162,7 +143,6 @@ export default function AddPlayerForm() {
                 </div>
               )}
 
-              {/* Responsive button layout */}
               <div className="pt-2 sm:pt-4 flex flex-col sm:flex-row sm:justify-end space-y-3 sm:space-y-0 sm:space-x-3">
                 <Button 
                   type="button" 
