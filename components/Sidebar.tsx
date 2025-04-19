@@ -10,7 +10,7 @@ const Sidebar: React.FC = () => {
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   const menuItems = [
-    { name: "Add Player", path: "/" },
+    { name: "Add Player", path: "/home" },
     { name: "Add Member", path: "/member" },
     { name: "Money", path: "/money" },
     { name: "Bets", path: "/bets" },
