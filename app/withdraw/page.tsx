@@ -155,7 +155,7 @@ export default function WithdrawTransaction(): React.ReactElement {
         <div className="mt-6">
           <Button
             variant="outline"
-            onClick={() => router.push("/dashboard")}
+            onClick={() => router.push("/home")}
             className="w-full text-gray-300 hover:text-white border-gray-600 hover:bg-gray-700"
           >
             Back to Dashboard
