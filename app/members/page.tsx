@@ -20,7 +20,7 @@ export default function MembersPage() {
   useEffect(() => {
     const fetchMembers = async () => {
       try {
-        const res = await axios.get("https://backend.nurdcells.com/api/members");
+        const res = await axios.get("https://backend.nurdcells.com/api/members/login");
         setMembers(res.data.members);
       } catch (err) {
         console.error("Failed to fetch members", err);
