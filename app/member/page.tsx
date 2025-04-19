@@ -12,7 +12,8 @@ export default function AddMemberForm() {
     fullName: "",
     phone: "",
     password: "",
-    referralCode: "", // This will be stored as 'money' or used differently
+    referralCode: "",
+    money: "", // New field for money input
   });
 
   const [loading, setLoading] = useState(false);
@@ -33,11 +34,19 @@ export default function AddMemberForm() {
         fullName: formData.fullName,
         phone: formData.phone,
         password: formData.password,
-        money: formData.referralCode || "0", // Use referralCode as initial money or handle differently
+        referralCode: formData.referralCode,
+        money: formData.money || "0", // Use money input or default to 0
       });
 
       setMessage(res.data.message || "Signup successful");
-      setFormData({ memberId: "", fullName: "", phone: "", password: "", referralCode: "" });
+      setFormData({
+        memberId: "",
+        fullName: "",
+        phone: "",
+        password: "",
+        referralCode: "",
+        money: "",
+      });
     } catch (err: any) {
       const errorMsg = err.response?.data?.message || "Signup failed";
       setMessage(errorMsg);
@@ -76,8 +85,13 @@ export default function AddMemberForm() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium text-red-500">Referral Code <span className="text-xs text-gray-500">(Required)</span></label>
+              <label className="text-sm font-medium text-red-500">Referral Code <span className="text-xs text-gray-500">(Optional)</span></label>
               <Input name="referralCode" placeholder="Enter referral code" value={formData.referralCode} onChange={handleChange} />
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-sm font-medium text-green-600">Initial Money <span className="text-xs text-gray-500">(Optional)</span></label>
+              <Input name="money" placeholder="1000" type="number" value={formData.money} onChange={handleChange} />
             </div>
 
             <div className="pt-4">

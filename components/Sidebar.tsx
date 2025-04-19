@@ -15,6 +15,8 @@ const Sidebar: React.FC = () => {
     { name: "Money", path: "/money" },
     { name: "Bets", path: "/bets" },
     { name: "Data", path: "/data" },
+    {name:"Members",path:"/members"},
+    {name:"users",path:"/users"},
     {name:"Logout",path:"/login"}
   ];
 
