@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { ArrowRight, Wallet, RefreshCw, ArrowLeft } from "lucide-react";
+import { ArrowRight, Wallet, RefreshCw, ArrowLeft, CheckCircle, X } from "lucide-react";
 import { toast } from "sonner";
 
 interface WithdrawResponse {
@@ -18,6 +18,11 @@ export default function WithdrawTransaction(): React.ReactElement {
   const [phoneNumber, setPhoneNumber] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [transactionDetails, setTransactionDetails] = useState<{
+    amount: number;
+    newBalance: number;
+  } | null>(null);
 
   const handleWithdraw = async (): Promise<void> => {
     setIsProcessing(true);
@@ -58,14 +63,24 @@ export default function WithdrawTransaction(): React.ReactElement {
           if (!response.ok) {
             throw new Error(data.error || "Failed to withdraw money");
           }
+          
+          // Store transaction details for the popup
+          setTransactionDetails({
+            amount: numericAmount,
+            newBalance: data.userBalance || 0,
+          });
+          
+          // Show success popup
+          setShowSuccessPopup(true);
+          
+          // Clear form
+          setAmount("");
+          
           return data;
         }),
         {
           loading: 'Processing withdrawal...',
-          success: (data) => {
-            setAmount("");
-            return `${data.message}. New balance: ₹${data.userBalance}`;
-          },
+          success: (data) => `${data.message}. New balance: ₹${data.userBalance}`,
           error: (error) => error.message || "Withdrawal failed",
         }
       );
@@ -79,8 +94,50 @@ export default function WithdrawTransaction(): React.ReactElement {
     }
   };
 
+  const closeSuccessPopup = () => {
+    setShowSuccessPopup(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-900 to-blue-900 text-white w-full p-4">
+      {/* Success Popup */}
+      {showSuccessPopup && transactionDetails && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 animate-fade-in relative">
+            <button 
+              onClick={closeSuccessPopup}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="flex flex-col items-center mb-4">
+              <div className="rounded-full bg-green-100 p-3 mb-4">
+                <CheckCircle className="h-12 w-12 text-green-500" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Withdrawal Successful!</h2>
+            </div>
+            
+            <div className="text-center mb-6">
+              <p className="text-gray-600 mb-2">Your withdrawal was processed</p>
+              <p className="text-xl font-semibold text-gray-800 mb-1">
+                ₹{transactionDetails.amount.toFixed(2)} Withdrawn
+              </p>
+              <p className="text-blue-600 font-medium">
+                Remaining Balance: ₹{transactionDetails.newBalance.toFixed(2)}
+              </p>
+            </div>
+            
+            <Button 
+              className="w-full bg-gradient-to-r from-purple-500 to-blue-600 hover:from-purple-600 hover:to-blue-700"
+              onClick={closeSuccessPopup}
+            >
+              Done
+            </Button>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-md mx-auto bg-gray-800 rounded-xl shadow-2xl p-6 mt-8">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-blue-400">

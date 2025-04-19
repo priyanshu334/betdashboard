@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRouter } from "next/navigation";
-import { ArrowRight, CreditCard, RefreshCw } from "lucide-react";
+import { ArrowRight, CreditCard, RefreshCw, CheckCircle, X } from "lucide-react";
 import { toast } from "sonner";
 
 interface TransactionResponse {
@@ -18,6 +18,11 @@ export default function MoneyTransaction(): React.ReactElement {
   const [phone, setPhone] = useState<string>("");
   const [amount, setAmount] = useState<string>("");
   const [isProcessing, setIsProcessing] = useState<boolean>(false);
+  const [showSuccessPopup, setShowSuccessPopup] = useState<boolean>(false);
+  const [transactionDetails, setTransactionDetails] = useState<{
+    amount: number;
+    newBalance: number;
+  } | null>(null);
 
   const handleAddMoney = async (): Promise<void> => {
     setIsProcessing(true);
@@ -53,9 +58,14 @@ export default function MoneyTransaction(): React.ReactElement {
             throw new Error(data.error || "Failed to add money");
           }
 
-          toast.success("Money Added Successfully", {
-            description: `₹${numericAmount} added to account. New Balance: ₹${data.newBalance}`,
+          // Store transaction details for the popup
+          setTransactionDetails({
+            amount: numericAmount,
+            newBalance: data.newBalance || 0,
           });
+          
+          // Show success popup
+          setShowSuccessPopup(true);
 
           setPhone("");
           setAmount("");
@@ -78,8 +88,50 @@ export default function MoneyTransaction(): React.ReactElement {
     }
   };
 
+  const closeSuccessPopup = () => {
+    setShowSuccessPopup(false);
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-900 to-purple-900 text-white w-full p-4">
+      {/* Success Popup */}
+      {showSuccessPopup && transactionDetails && (
+        <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
+          <div className="bg-white rounded-xl shadow-2xl p-6 max-w-sm w-full mx-4 animate-fade-in relative">
+            <button 
+              onClick={closeSuccessPopup}
+              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700"
+            >
+              <X className="h-5 w-5" />
+            </button>
+            
+            <div className="flex flex-col items-center mb-4">
+              <div className="rounded-full bg-green-100 p-3 mb-4">
+                <CheckCircle className="h-12 w-12 text-green-500" />
+              </div>
+              <h2 className="text-2xl font-bold text-gray-800">Money Added!</h2>
+            </div>
+            
+            <div className="text-center mb-6">
+              <p className="text-gray-600 mb-2">Your transaction was successful</p>
+              <p className="text-xl font-semibold text-gray-800 mb-1">
+                ₹{transactionDetails.amount.toFixed(2)} Added
+              </p>
+              <p className="text-green-600 font-medium">
+                New Balance: ₹{transactionDetails.newBalance.toFixed(2)}
+              </p>
+            </div>
+            
+            <Button 
+              className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700"
+              onClick={closeSuccessPopup}
+            >
+              Done
+            </Button>
+          </div>
+        </div>
+      )}
+
       <div className="max-w-md mx-auto bg-gray-800 rounded-xl shadow-2xl p-6 mt-8">
         {/* Top Navigation Buttons */}
         <div className="flex justify-between items-center mb-6">
